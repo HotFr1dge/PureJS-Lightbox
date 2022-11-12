@@ -8,7 +8,7 @@ const CLOSE_BTN = OVERLAY.querySelector('#_lightbox_gallery_overlay__close_');
 const PREV_BTN = OVERLAY.querySelector('#_lightbox_gallery_overlay__left');
 const NEXT_BTN = OVERLAY.querySelector('#_lightbox_gallery_overlay__right');
 
-let currentImage, nextImage, prevImage;
+let currentImage, nextImage, prevImage, changeFocus;
 
 LIGHTBOXES.forEach(gallery => {
 	const IMAGES = [...gallery.getElementsByTagName('img')];
@@ -31,6 +31,10 @@ LIGHTBOXES.forEach(gallery => {
 				currentImage < 0 ? currentImage = IMAGES.length - 1 : '';
 				OVERLAY.getElementsByTagName('img')[0].src = IMAGES[currentImage].src;
 			};
+
+			changeFocus = () => {
+				image.focus();
+			}
 		});
 	});
 	
@@ -60,7 +64,6 @@ window.addEventListener("keydown", (event) => {
 		event.target.click();
 	}
 
-	console.log(event)
 });
 
 
@@ -71,6 +74,7 @@ function hideOverlay() {
 	[...document.getElementsByTagName('img')].forEach((x) => {
 		x.setAttribute('tabindex', 0);
 	});
+	changeFocus();
 }
 
 function showOverlay() {
