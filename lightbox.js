@@ -19,26 +19,25 @@ LIGHTBOXES.forEach(gallery => {
 			currentImage = index;
 			OVERLAY.getElementsByTagName('img')[0].src = image.src;
 			showOverlay();
+
+			nextImage = () => {
+				currentImage++;
+				currentImage === IMAGES.length ? currentImage = 0 : '';
+				OVERLAY.getElementsByTagName('img')[0].src = IMAGES[currentImage].src;
+			};
+		
+			prevImage = () => {
+				currentImage--;
+				currentImage < 0 ? currentImage = IMAGES.length - 1 : '';
+				OVERLAY.getElementsByTagName('img')[0].src = IMAGES[currentImage].src;
+			};
 		});
 	});
-
-	nextImage = () => {
-		currentImage++;
-		currentImage === IMAGES.length ? currentImage = 0 : '';
-		OVERLAY.getElementsByTagName('img')[0].src = IMAGES[currentImage].src;
-	};
-
-	prevImage = () => {
-		currentImage--;
-		currentImage < 0 ? currentImage = IMAGES.length - 1 : '';
-		OVERLAY.getElementsByTagName('img')[0].src = IMAGES[currentImage].src;
-	};
-
+	
 });
 
-NEXT_BTN.addEventListener('click', nextImage);
-
-PREV_BTN.addEventListener('click', prevImage);
+NEXT_BTN.addEventListener('click', () => { nextImage() });	
+PREV_BTN.addEventListener('click', () => { prevImage() });
 
 CLOSE_BTN.addEventListener('click', () => {
 	hideOverlay();
